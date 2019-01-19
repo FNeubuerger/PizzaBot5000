@@ -8,16 +8,21 @@ def generate_pizza(bases='base.txt' ,toppings='toppings.txt',cheeses='cheese.txt
     toppings= read_csv(toppings, header=None)
     cheeses = read_csv(cheeses, header= None)
     sauces = read_csv(sauces, header=None)
+
     #determine number of toppings sauces and cheeses
     n_toppings = np.random.random_integers(min_n_toppings,min(max_n_toppings,len(toppings)))
-    n_cheeses = np.random.random_integers(1,max_n_cheeses)
-    n_sauces = np.random.random_integers(1,max_n_sauces)
+    n_cheeses = np.random.random_integers(1,min(max_n_cheeses,len(cheeses)))
+    n_sauces = np.random.random_integers(1,min(max_n_sauces,len(sauces)))
+
     #assemble pizza
-    pizza = toppings.sample(n_toppings)
+    pizza = cheeses.sample(n_cheeses)[0].tolist()+toppings.sample(n_toppings)[0].tolist()+sauces.sample(n_sauces)[0].tolist()+bases.sample(1)[0].tolist()
 
     return pizza
 
-
+def format(pizza):
+    for i in range(len(pizza)):
+        print(pizza[i])
 
 if __name__ == '__main__':
-    print(generate_pizza())
+    pizza= generate_pizza()
+    format(pizza)
