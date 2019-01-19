@@ -54,6 +54,3 @@ if __name__ == '__main__':
     #make my pizza now
     pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
     format(pizza)
-
-    #post pizza to facebook
-    #TODO
