@@ -28,10 +28,10 @@ def format(pizza):
 if __name__ == '__main__':
     #get commandline arguments if needed
     parser = ArgumentParser()
-    parser.add_argument('--max_ch', help='enter number of minimum amount of cheeses', default=1, type=int)
-    parser.add_argument('--min_top', help='enter number of minimum amount of toppings', default=2, type=int)
-    parser.add_argument('--max_top', help='enter number of maximum amount of toppings', default=4, type=int)
-    parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces', default=1, type=int)
+    parser.add_argument('--max_ch', help='enter number of minimum amount of cheeses, default=1', default=1, type=int)
+    parser.add_argument('--min_top', help='enter number of minimum amount of toppings, default=2', default=2, type=int)
+    parser.add_argument('--max_top', help='enter number of maximum amount of toppings, default=4', default=4, type=int)
+    parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces, default=1', default=1, type=int)
     args = parser.parse_args()
 
     #make my pizza now
