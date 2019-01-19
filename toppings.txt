@@ -19,4 +19,5 @@
 'scampi'
 'oyster'
 'scallop'
-''
+'tuna'
+'pulled pork'
