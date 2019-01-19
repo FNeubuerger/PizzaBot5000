@@ -1,22 +1,21 @@
-'peperoni'
-'ham'
-'pineapple'
-'tofu'
-'sausage'
-'anchovis'
-'egg'
-'hard boiled egg'
-'spaghetti'
-'fries'
-'corn'
-'gyros'
-'artichoke'
-'bell pepper'
-'peanuts'
-'jalapenos'
-'broccoli'
-'kale'
-'scampi'
-'oyster'
-'scallop'
-''
+peperoni
+ham
+pineapple
+tofu
+sausage
+anchovis
+egg
+hard boiled egg
+spaghetti
+fries
+corn
+gyros
+artichoke
+bell pepper
+peanuts
+jalapenos
+broccoli
+kale
+scampi
+oyster
+scallop
