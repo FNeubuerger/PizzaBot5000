@@ -1,6 +1,7 @@
 import numpy as np
 import random
 from pandas import read_csv
+from argparse import ArgumentParser
 
 def generate_pizza(bases='base.txt' ,toppings='toppings.txt',cheeses='cheese.txt',sauces='sauce.txt',min_n_toppings=2,max_n_toppings=4,max_n_cheeses=1,max_n_sauces=1):
     #read data
@@ -20,9 +21,19 @@ def generate_pizza(bases='base.txt' ,toppings='toppings.txt',cheeses='cheese.txt
     return pizza
 
 def format(pizza):
+    #print to commandline for facebook display
     for i in range(len(pizza)):
         print(pizza[i])
 
 if __name__ == '__main__':
-    pizza= generate_pizza()
+    #get commandline arguments if needed
+    parser = ArgumentParser()
+    parser.add_argument('--max_ch', help='enter number of minimum amount of cheeses', default=1, type=int)
+    parser.add_argument('--min_top', help='enter number of minimum amount of toppings', default=2, type=int)
+    parser.add_argument('--max_top', help='enter number of maximum amount of toppings', default=4, type=int)
+    parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces', default=1, type=int)
+    args = parser.parse_args()
+
+    #make my pizza now
+    pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce)
     format(pizza)
