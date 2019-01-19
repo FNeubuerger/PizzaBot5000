@@ -1,4 +1,4 @@
-'a hand full of'
-'two'
-'1 cup of'
-'1/2 cups of'
+a hand full of
+two
+1 cup of
+1/2 cups of
