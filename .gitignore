@@ -106,5 +106,9 @@ venv.bak/
 # secret token
 secret.txt
 
-#email pw
+# email pw
 pw.txt
+
+# APPID
+appID.txt
+appSecret.txt

@@ -53,9 +53,19 @@ def str2bool(v):
 def getToken():
     filepath = 'secret.txt'
     with open(filepath) as fp:
-        token = fp.readline()
-    return token
+        user_short_lived_token_from_client = fp.readline()
+    filepath = 'appID.txt'
+    with open(filepath) as fp:
+        app_id = fp.readline()
+    filepath = 'appSecret.txt'
+    with open(filepath) as fp:
+        app_secret = fp.readline()
 
+    graph = facebook.GraphAPI(user_short_lived_token_from_client)
+    # Extend the expiration time of a valid OAuth access token.
+    extended_token = graph.extend_access_token(app_id, app_secret)
+    return extended_token
+    
 def getpw():
     filepath = 'pw.txt'
     with open(filepath) as fp:
