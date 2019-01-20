@@ -87,15 +87,16 @@ def sendemail(from_addr, to_addr_list, cc_addr_list,
 def infinite_random_shitposting():
     while True:
         try:
-            pizza = generate_pizza()
+            pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random) #with optional parameters
             if args.post==True:
                 post(pizza)
+                #only post every 4 hours
+                time.sleep(4*60*60)
             else:
                 format(pizza)
                 print('-----')
-            #post every 4 hours
-            #time.sleep(4*60*60*60)
-            time.sleep(2)
+                #post every 2 seconds for testing
+                time.sleep(2)
         except:
             sendemail(from_addr='pizzabot54321@gmail.com', to_addr_list=['jonas793@gmail.com'], cc_addr_list=['felix793@gmail.com'],
                        subject='PizzaBot Failure',
@@ -122,7 +123,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.loop==True:
         #if infinity loop is wanted do that
-        infinite_random_shitposting()
+        infinite_random_shitposting() #uses commandline arguments internally
     else:
          #make my pizza now and print it to console and/or post it
          pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
