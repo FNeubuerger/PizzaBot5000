@@ -4,6 +4,9 @@ import random
 import facebook
 from pandas import read_csv
 from argparse import ArgumentParser
+import smtplib
+import time
+
 
 def generate_pizza(bases='base.txt', toppings='toppings.txt', cheeses='cheese.txt', sauces='sauce.txt',
                     min_n_toppings=2, max_n_toppings=4, max_n_cheeses=1, max_n_sauces=1,
@@ -30,9 +33,9 @@ def format(pizza):
     #print to commandline for facebook display
     for i in range(len(pizza)):
         print(pizza[i])
-        
 
-def getPizzaString():
+
+def getPizzaString(pizza):
     pizzastr = ""
     for i in range(len(pizza)):
         pizzastr = pizzastr + "\n" + pizza[i]
@@ -48,16 +51,62 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 def getToken():
-    filepath = 'secret.txt'  
-    with open(filepath) as fp:  
+    filepath = 'secret.txt'
+    with open(filepath) as fp:
         token = fp.readline()
     return token
 
-def post():
+def getpw():
+    filepath = 'pw.txt'
+    with open(filepath) as fp:
+        pw = fp.readline()
+    return pw
+
+def post(pizza):
     #do a facebook post
     graph = facebook.GraphAPI(access_token=getToken(), version = "3.1")
     graph.put_object(parent_object='me', connection_name='feed',
-                    message=getPizzaString())
+                    message=getPizzaString(pizza))
+
+
+def sendemail(from_addr, to_addr_list, cc_addr_list,
+              subject, message,
+              login, password,
+              smtpserver='smtp.gmail.com:587'):
+    header  = 'From: %s' % from_addr
+    header += 'To: %s' % ','.join(to_addr_list)
+    header += 'Cc: %s' % ','.join(cc_addr_list)
+    header += 'Subject: %s' % subject
+    message = header + message
+
+    server = smtplib.SMTP(smtpserver)
+    server.starttls()
+    server.login(login,password)
+    problems = server.sendmail(from_addr, to_addr_list, message)
+    server.quit()
+
+def infinite_random_shitposting():
+    while True:
+        try:
+            pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random) #with optional parameters
+            if args.post==True:
+                post(pizza)
+                #only post every 4 hours
+                time.sleep(4*60*60)
+            else:
+                format(pizza)
+                print('-----')
+                #post every 2 seconds for testing
+                time.sleep(2)
+        except:
+            sendemail(from_addr='pizzabot54321@gmail.com', to_addr_list=['jonas793@gmail.com'], cc_addr_list=['felix793@gmail.com'],
+                       subject='PizzaBot Failure',
+                       message='whoops something broke again',
+                       login='pizzabot54321',
+                       password=get_pw()
+                       )
+            break
+
 
 if __name__ == '__main__':
     #get commandline arguments if needed
@@ -70,10 +119,17 @@ if __name__ == '__main__':
     parser.add_argument('--max_top', help='enter number of maximum amount of toppings, default=4', default=4, type=int)
     parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces, default=1', default=1, type=int)
     parser.add_argument('--random', help='determine if number of pizza toppings etc. is random, default=True', default=True, type=str2bool)
+    parser.add_argument('--post', help='determine if the generated pizza should be posted to facebook, default=False', default=False, type=str2bool)
+    parser.add_argument('--loop', help='determine if automatic posting should be done, default=False', default=False, type=str2bool)
     args = parser.parse_args()
-    #make my pizza now
-    pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
-    format(pizza)
+    if args.loop==True:
+        #if infinity loop is wanted do that
+        infinite_random_shitposting() #uses commandline arguments internally
+    else:
+         #make my pizza now and print it to console and/or post it
+         pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
+         format(pizza)
 
-    #post to facebook
-    post()
+         if args.post==True:
+             #post to facebook
+            post(pizza)
