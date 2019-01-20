@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import numpy as np
 import random
-import facebook
 from pandas import read_csv
 from argparse import ArgumentParser
 import smtplib
@@ -63,6 +62,7 @@ def getpw():
     return pw
 
 def post(pizza):
+    import facebook
     #do a facebook post
     graph = facebook.GraphAPI(access_token=getToken(), version = "3.1")
     graph.put_object(parent_object='me', connection_name='feed',
