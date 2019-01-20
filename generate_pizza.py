@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import facebook
 from pandas import read_csv
 from argparse import ArgumentParser
 
@@ -28,7 +29,13 @@ def format(pizza):
     #print to commandline for facebook display
     for i in range(len(pizza)):
         print(pizza[i])
+        
 
+def getPizzaString():
+    pizzastr = ""
+    for i in range(len(pizza)):
+        pizzastr = pizzastr + "\n" + pizza[i]
+    return pizzastr
 
 def str2bool(v):
     #stuff for the argparser to understand bools
@@ -38,6 +45,18 @@ def str2bool(v):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
+
+def getToken():
+    filepath = 'secret.txt'  
+    with open(filepath) as fp:  
+        token = fp.readline()
+    return token
+
+def post():
+    #do a facebook post
+    graph = facebook.GraphAPI(access_token=getToken(), version = "3.1")
+    graph.put_object(parent_object='me', connection_name='feed',
+                    message=getPizzaString())
 
 if __name__ == '__main__':
     #get commandline arguments if needed
@@ -54,3 +73,6 @@ if __name__ == '__main__':
     #make my pizza now
     pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
     format(pizza)
+
+    #post to facebook
+    post()
