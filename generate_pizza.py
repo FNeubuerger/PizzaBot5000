@@ -29,7 +29,7 @@ def format(pizza):
     #print to commandline for facebook display
     for i in range(len(pizza)):
         print(pizza[i])
-        
+
 
 def getPizzaString():
     pizzastr = ""
@@ -47,8 +47,8 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 def getToken():
-    filepath = 'secret.txt'  
-    with open(filepath) as fp:  
+    filepath = 'secret.txt'
+    with open(filepath) as fp:
         token = fp.readline()
     return token
 
@@ -69,10 +69,12 @@ if __name__ == '__main__':
     parser.add_argument('--max_top', help='enter number of maximum amount of toppings, default=4', default=4, type=int)
     parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces, default=1', default=1, type=int)
     parser.add_argument('--random', help='determine if number of pizza toppings etc. is random, default=True', default=True, type=str2bool)
+    parser.add_argument('--post', help='determine if number of pizza toppings etc. is random, default=False', default=False, type=str2bool)
     args = parser.parse_args()
     #make my pizza now
-    pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random)
+    pizza = generate_pizza(min_n_toppings=args.min_top, max_n_toppings=args.max_top, max_n_cheeses=args.max_ch, max_n_sauces=args.max_sauce, n_cheeses=args.n_ch, n_toppings=args.n_top, n_sauces=args.n_sauces, rand=args.random, post=args.post)
     format(pizza)
 
-    #post to facebook
-    post()
+    if args.post==True:
+        #post to facebook
+        post()
