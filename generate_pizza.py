@@ -114,7 +114,7 @@ if __name__ == '__main__':
     parser.add_argument('--max_sauce', help='enter number of maximum numbers of sauces, default=1', default=1, type=int)
     parser.add_argument('--random', help='determine if number of pizza toppings etc. is random, default=True', default=True, type=str2bool)
     parser.add_argument('--post', help='determine if the generated pizza should be posted to facebook, default=False', default=False, type=str2bool)
-    parser.add_argument('--loop'help='determine if automatic posting should be done, default=False', default=False, type=str2bool)
+    parser.add_argument('--loop', help='determine if automatic posting should be done, default=False', default=False, type=str2bool)
     args = parser.parse_args()
     if args.loop==True:
         #if infinity loop is wanted do that
