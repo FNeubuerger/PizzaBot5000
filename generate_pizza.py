@@ -90,8 +90,12 @@ def infinite_random_shitposting():
             pizza = generate_pizza()
             if args.post==True:
                 post(pizza)
+            else:
+                format(pizza)
+                print('-----')
             #post every 4 hours
-            time.sleep(4*60*60*60)
+            #time.sleep(4*60*60*60)
+            time.sleep(2)
         except:
             sendemail(from_addr='pizzabot54321@gmail.com', to_addr_list=['jonas793@gmail.com'], cc_addr_list=['felix793@gmail.com'],
                        subject='PizzaBot Failure',
