@@ -161,3 +161,31 @@ Yams
 Yellow Squash
 Yuca/Cassava
 Zucchini Squash
+
+Blutwurst
+Kartoffelwurst
+Hot dog
+Thuringian sausage
+Beutelwurst
+Kochwurst
+Jagdwurst
+Stippgrütze
+Frankfurter Rindswurst
+Thüringer Rotwurst
+Grützwurst
+Brühwurst
+Gelbwurst
+Cervelat
+Knipp
+Weißwurst
+Teewurst
+Mettwurst
+Liverwurst
+Braunschweiger
+Bierwurst
+Bratwurst
+Bockwurst
+Pinkel
+Westfälische Rinderwurst
+Knackwurst
+
